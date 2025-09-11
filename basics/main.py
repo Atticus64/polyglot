@@ -1,3 +1,5 @@
+from random import randint
+
 
 def find_elem_matrix(elem, matrix) -> (int, int):
     i = 0
@@ -17,16 +19,140 @@ def fibo(n: int) -> int:
 
     return fibo(n - 1) + fibo(n - 2)
 
+
+def print_cat():
+    print("""
+  /$$$$$$              /$$     /$$   /$$              
+ /$$__  $$            | $$    |__/  | $$              
+| $$  \__/  /$$$$$$  /$$$$$$   /$$ /$$$$$$    /$$$$$$       /\_/\ 
+| $$ /$$$$ |____  $$|_  $$_/  | $$|_  $$_/   /$$__  $$     ( o .o )
+| $$|_  $$  /$$$$$$$  | $$    | $$  | $$    | $$  \ $$      > /\  < 
+| $$  \ $$ /$$__  $$  | $$ /$$| $$  | $$ /$$| $$  | $$
+|  $$$$$$/|  $$$$$$$  |  $$$$/| $$  |  $$$$/|  $$$$$$/
+ \______/  \_______/   \___/  |__/   \___/   \______/                                         
+""")
+
+
+def print_board(board):
+    n = 0
+    for i in range(3):
+        for j in range(3):
+            n += 1
+            if j == 0:
+                print("|", end="")
+            if board[i][j] != '*':
+                print(f" {board[i][j]} |", end="")
+            else:
+                print(f" {n} |", end="")
+
+        if i == 2:
+            continue
+        print("\n ───────────", end="")
+
+        print()
+
+    print()
+
+
+def valid_move(board, move, char):
+    n = 1
+    for i in range(3):
+        for j in range(3):
+            if n == move and board[i][j] == '*':
+                board[i][j] = char
+                return True
+            n += 1
+
+    return False
+
+
+def check_win(board, player, computer):
+    winner = None
+    first = board[0][0]
+    second = board[0][1]
+    third = board[0][2]
+    fourth = board[1][0]
+    fifth = board[1][1]
+    sixth = board[1][2]
+    seventh = board[2][0]
+    eighth = board[2][1]
+    ninth = board[2][2]
+
+    # horizontals
+    if first == second and second == third:
+        winner = first
+    elif fourth == fifth and fifth == sixth:
+        winner = fourth
+    elif seventh == eighth and eighth == ninth:
+        winner = seventh
+
+    # verticals
+    if first == fourth and fourth == seventh:
+        winner = first
+    elif second == fifth and fifth == eighth:
+        winner = second
+    elif third == sixth and sixth == ninth:
+        winner = third
+
+    # cross
+    if first == fifth and fifth == ninth:
+        winner = first
+    elif third == fifth and fifth == seventh:
+        winner = third
+
+    if winner != '*' and winner is not None:
+        if winner == computer:
+            print("Gano el rival!")
+        if winner == player:
+            print("Ganaste!!")
+
+        print_board(board)
+
+    return winner != '*' and winner is not None
+
+
+def game_cat():
+    TURN_PLAYER = 'player'
+    TURN_COMPUTER = 'computer'
+    print_cat()
+    board = [['*' for _ in range(3)] for _ in range(3)]
+    turn = TURN_PLAYER
+    jug = 'X'
+    com = '◯'
+
+    while True:
+        print_board(board)
+        if turn == TURN_PLAYER:
+            print("Turno jugador")
+            move = int(input(f"Ingresa tu jugada {jug}: "))
+
+            while not valid_move(board, move, jug):
+                print("casilla ya ocupada")
+                move = int(input(f"Ingresa tu jugada {jug}: "))
+
+        if turn == TURN_COMPUTER:
+            print("Turno rival")
+            move = randint(0, 9)
+            while not valid_move(board, move, com):
+                move = randint(0, 9)
+
+        if check_win(board, jug, com):
+            break
+
+        turn = TURN_COMPUTER if turn == TURN_PLAYER else TURN_PLAYER
+
+
 def menu():
     message = """
 Menu de opciones
     1) Mostrar serie Fibonacci
     2) Jugar con Matriz 3x3 
-    3) salir
+    3) Jugar al gatito 
+    4) salir
     """
 
     opc = 0
-    while opc != 3:
+    while opc != 4:
         print(message)
         opc = int(input("> "))
         match opc:
@@ -54,9 +180,14 @@ Menu de opciones
                     print("No se encontro el elemento")
 
                 continue
+
             case 3:
+                game_cat()
+                continue
+            case 4:
                 print("Saliendo...")
                 exit(0)
+
             case _:
                 print("Opcion invalida!", end="")
                 continue
