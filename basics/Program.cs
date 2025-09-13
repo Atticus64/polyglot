@@ -1,4 +1,5 @@
 ﻿
+
 public class MainProgram
 {
 
@@ -114,15 +115,45 @@ public class MainProgram
         }
 
         if (winner == '*')
+        {
             winner = null;
+        }
 
+        bool available = false;
+        if (winner == null)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    if (board[i, j] == '*')
+                    {
+                        available = true;
+                        break;
+                    }
+                }
+            }
+            if (available == false)
+            {
+                winner = 'D';
+            }
+        }
+
+        
         if (winner != null)
         {
-            if (winner == computer)
-                Console.WriteLine("Gano el rival!");
 
-            if (winner == player)
+            if (winner == computer)
+            {
+                Console.WriteLine("Gano el rival!");
+            }
+            else if (winner == player)
+            {
                 Console.WriteLine("Ganaste!");
+            } else
+            {
+                Console.WriteLine("Fue empate");
+            }
 
             PrintBoard(board);
         }

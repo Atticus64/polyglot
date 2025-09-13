@@ -100,12 +100,27 @@ def check_win(board, player, computer):
     elif third == fifth and fifth == seventh:
         winner = third
 
+    if winner is not None and winner == '*':
+        winner = None
+
+    if winner is None:
+        available = False
+        for i in range(3):
+            for j in range(3):
+                if board[i][j] == '*':
+                    available = True
+                    break
+
+        if not available :
+            winner = 'D'
+
     if winner != '*' and winner is not None:
         if winner == computer:
             print("Gano el rival!")
-        if winner == player:
+        elif winner == player:
             print("Ganaste!!")
-
+        else:
+            print("Fue empate!")
         print_board(board)
 
     return winner != '*' and winner is not None
