@@ -325,6 +325,7 @@ class CliApp {
         auto list = ListAction();
         if (args.size() == 1) {
             list.run();
+            return;
         }
 
         auto help = HelpAction();
