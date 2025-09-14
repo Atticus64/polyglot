@@ -1,10 +1,4 @@
-﻿
-
-
-
-
-using System;
-using System.Text;
+﻿using System.Text;
 
 public class FileEntry
 {
@@ -237,6 +231,37 @@ public class OrderAction : Action {
         Reader.PrintFiles(files);
     }
 }
+public class SizeAction : Action {
+
+    public string name = "size";
+    public string[] flags = ["s", "size"];
+
+    public override void run()
+    {
+        Reader r;
+
+        if (arguments.Length == 0)
+        {
+            r = new Reader();
+        } else {
+            r = new Reader(arguments[0]);
+        }
+
+        List<FileEntry> files = r.GetFilesDir();
+
+        if (files.Count == 0)
+        {
+            Console.WriteLine("Error: No hay elementos en " + r.path);
+            return;
+        }
+
+        files.Sort((f1, f2) => (Convert.ToInt32(f2.real_size - f1.real_size)));
+
+        Reader.PrintFiles(files);
+    }
+}
+
+
 
 class CliApp
 
@@ -256,7 +281,7 @@ class CliApp
 
     public static bool ExistsFlags(string[] collection)
     {
-        return Array.Exists(collection, arg => arg.StartsWith("-"));
+        return Array.Exists(collection, arg => arg.StartsWith("-") == true);
     }
 
     public void Eval()
@@ -265,18 +290,19 @@ class CliApp
         ListAction list = new ListAction();
         if (args.Length == 0)
         {
-            // list
+
             list.run();
             return;
         }
         
         HelpAction help = new HelpAction();
         OrderAction order = new OrderAction();
+        SizeAction size = new SizeAction();
 
-        string[] filtered = Array.FindAll(args, arg => !arg.StartsWith("-"));
+        string[] filtered = Array.FindAll(args, arg => arg.StartsWith("-") == false);
         if (ExistsFlags(args))
         {
-            string? check = Array.Find(args, arg => arg.Contains("-"));
+            string? check = Array.Find(args, arg => arg.StartsWith("-") == true);
 
             if (check == null)
             {
@@ -289,12 +315,18 @@ class CliApp
             {
                 help.add_args(filtered);
                 help.run();
-            } 
-            else if (CheckFlag(order.flags, flag!))
+            }
+            else if (CheckFlag(order.flags, flag))
             {
 
                 order.add_args(filtered);
                 order.run();
+            }
+            else if (CheckFlag(size.flags, flag))
+            {
+
+                size.add_args(filtered);
+                size.run();
             }
 
 
