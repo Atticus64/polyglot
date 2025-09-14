@@ -244,7 +244,6 @@ class OrderAction: public Action {
         if (arguments.empty()) {
             r = Reader();
         } else {
-            cout << arguments[0] << endl;
             r = Reader(arguments[0]);
         }
 
