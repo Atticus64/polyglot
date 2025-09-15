@@ -31,6 +31,8 @@ public:
     bool is_directory;
     uintmax_t real_size;
 
+    
+    // Constructor para crear la instancia de la representacion de un archivo
     File(HumanReadable size, string name, string date, bool is_dir, uintmax_t rsize) {
         this->size = size;
         this->name = name;
@@ -47,15 +49,18 @@ public:
 
     };
     string path;
+    // Sobrecarga en constructor
     Reader(const fs::path& path) {
         this->path = path.string();
     }
 
+    // Sobrecarga por si no viene path o direccion de directorio
     Reader() {
         this->path = ".";
     }
 
 
+    // Sobrecarga de constructor
     Reader(const char* path) {
         this->path = path;
     }
@@ -175,6 +180,7 @@ public:
     virtual void run() = 0;
 };
 
+// Herencia para definir el contrato de funciones de las clases de Acciones
 class Action: public BaseAction {
 
     public:
@@ -193,6 +199,8 @@ class Action: public BaseAction {
 class ListAction: public Action {
     public:
         string name = "list";
+
+    // Polimorfismo para ejecutar varias acciones diferentes dependiendo de la Accion
     void run() override {
         Reader r;
         vector<filesystem::directory_entry> entries;
@@ -322,6 +330,7 @@ class CliApp {
     }
 
     void eval() {
+        // uso de objetos
         auto list = ListAction();
         if (args.size() == 1) {
             list.run();
