@@ -1,0 +1,6 @@
+gnome-text-editor
+brave-browser
+libreoffice --writer
+libreoffice --impress
+libreoffice --calc
+
