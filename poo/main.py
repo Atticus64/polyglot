@@ -15,6 +15,7 @@ class FileEntry:
     real_size: int
     size: str
 
+    # Constructor para crear la instancia de la abstracción del archivo
     def __init__(self, name: str, dat: str, is_dir: bool, rsz: int, size: str):
         self.name = name
         self.date = dat
@@ -26,10 +27,13 @@ class FileEntry:
 class Reader:
     path: str
 
+    # Una Sobrecarga del constructor muy fumada porque python no la implementa por defecto
     @singledispatch
     def __init__(self, arg: str = '.'):
         self.path = arg
 
+    # Aunque fue muy útil porque dio problemas con las direcciones de los 
+    # archivos en Windows por su diferencia con Linux
     @__init__.register
     def _(self, arg: Path):
         self.path = arg
@@ -81,6 +85,7 @@ class Reader:
             is_dir = entry.is_dir()
             rsz = self.get_size(entry)
             size = self.human_read_size(rsz)
+            # Uso de Objetos
             file = FileEntry(name, date, is_dir, rsz, size)
             files.append(file)
 
@@ -113,7 +118,7 @@ def unwrap_files(arguments: List[str]):
 
     return list_files, r
 
-
+# Clase Abstracta en Python
 class BaseAction(ABC):
     arguments = []
 
@@ -125,7 +130,7 @@ class BaseAction(ABC):
     def run(self):
         pass
 
-
+# Herencia para definir contrato con las Acciones de la aplicación
 class Action(BaseAction):
     def __init__(self):
         self.arguments = []
@@ -144,6 +149,7 @@ class HelpAction(Action):
     def __init__(self):
         super().__init__()
 
+    # Polimorfismo para ejecutar el menu de ayuda
     def run(self):
         print("Usage: rd <directory>")
         print("Options:")
@@ -158,6 +164,7 @@ class ListAction(Action):
     def __init__(self):
         super().__init__()
 
+    # Polimorfismo para listar los archivos del directorio de manera normal
     def run(self):
         list_files, r = unwrap_files(self.arguments)
 

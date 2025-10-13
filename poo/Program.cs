@@ -1,5 +1,6 @@
 ﻿using System.Text;
 
+// Clase para representar el archivo
 public class FileEntry
 {
     public string name;
@@ -8,6 +9,7 @@ public class FileEntry
     public long real_size;
     public string size;
 
+    // Constructor de la clase del archivo
     public FileEntry(string name, string date, bool is_directory, long real_size, string size)
     {
         this.name = name;
@@ -21,11 +23,15 @@ public class FileEntry
 public class Reader
 {
     public string path;
+
+    // Sobrecarga de constructor
     public Reader(string p)
     {
         this.path = p;
     }
 
+    // Sobrecarga del constructor para manejar la falta del argumento 
+    // de la direccion del sistema de archivos
     public Reader()
     {
         this.path = ".";
@@ -79,6 +85,7 @@ public class Reader
             bool is_dir = di.Attributes.HasFlag(FileAttributes.Directory);
             string hsize = human_readable_size(size);
             string date = di.LastWriteTime.Date.ToString("yyyy-MM-dd");
+            // Objetos para manejar la representacion del problema
             FileEntry f = new FileEntry(filename, date, is_dir, size, hsize);
             files.Add(f);
         }
@@ -143,6 +150,8 @@ public abstract class BaseAction
     public abstract void run();
 }
 
+// Herencia para manejar la forma en la que funcionaran las acciones 
+// de la aplicación
 public class Action : BaseAction
 {
     public string[] arguments = [];
@@ -162,6 +171,8 @@ public class HelpAction : Action
     public string name = "help";
     public string[] flags = ["h", "help"];
 
+    // Polimorfismo para manejar las diferentes acciones
+    // este metodo esta en todos los tipos de acciones
     public override void run()
     {
         Console.WriteLine("Usage: rd <directory>");
