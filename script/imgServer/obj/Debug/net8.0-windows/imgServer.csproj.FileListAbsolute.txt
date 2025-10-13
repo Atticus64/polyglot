@@ -1,0 +1,16 @@
+C:\Users\Jonathan\source\repos\imgServer\obj\Debug\net8.0-windows\imgServer.Form1.resources
+C:\Users\Jonathan\source\repos\imgServer\obj\Debug\net8.0-windows\imgServer.csproj.GenerateResource.cache
+C:\Users\Jonathan\source\repos\imgServer\obj\Debug\net8.0-windows\imgServer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Jonathan\source\repos\imgServer\obj\Debug\net8.0-windows\imgServer.AssemblyInfoInputs.cache
+C:\Users\Jonathan\source\repos\imgServer\obj\Debug\net8.0-windows\imgServer.AssemblyInfo.cs
+C:\Users\Jonathan\source\repos\imgServer\obj\Debug\net8.0-windows\imgServer.csproj.CoreCompileInputs.cache
+C:\Users\Jonathan\source\repos\imgServer\bin\Debug\net8.0-windows\imgServer.exe
+C:\Users\Jonathan\source\repos\imgServer\bin\Debug\net8.0-windows\imgServer.deps.json
+C:\Users\Jonathan\source\repos\imgServer\bin\Debug\net8.0-windows\imgServer.runtimeconfig.json
+C:\Users\Jonathan\source\repos\imgServer\bin\Debug\net8.0-windows\imgServer.dll
+C:\Users\Jonathan\source\repos\imgServer\bin\Debug\net8.0-windows\imgServer.pdb
+C:\Users\Jonathan\source\repos\imgServer\obj\Debug\net8.0-windows\imgServer.dll
+C:\Users\Jonathan\source\repos\imgServer\obj\Debug\net8.0-windows\refint\imgServer.dll
+C:\Users\Jonathan\source\repos\imgServer\obj\Debug\net8.0-windows\imgServer.pdb
+C:\Users\Jonathan\source\repos\imgServer\obj\Debug\net8.0-windows\imgServer.genruntimeconfig.cache
+C:\Users\Jonathan\source\repos\imgServer\obj\Debug\net8.0-windows\ref\imgServer.dll
